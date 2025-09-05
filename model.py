@@ -1,19 +1,8 @@
-import os
-from groq import Groq 
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "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")
-
-if not GROQ_API_KEY:
-    raise ValueError("GROQ_API_KEY is missing! Make sure it's set in environment variables.")
-
-client = Groq(api_key=GROQ_API_KEY)  
-
-
-
 def select_prompt(sender, receiver,message):
     sender = sender.lower().strip()
     receiver = receiver.lower().strip()
     msg_lower = message.lower().strip()
-    if sender == "designer"  and receiver == "developer":
+    if sender == "designer" and receiver == "developer":
         return From_designer_to_programmer_prompt
     elif sender == "developer" and receiver == "designer":
         return From_programmer_to_designer_prompt
@@ -24,7 +13,7 @@ def select_prompt(sender, receiver,message):
     if sender == "media" and receiver == "developer":
         msg_lower = message.lower()
         if "cms" in msg_lower:
-            return CMS
+            return CMS_prompt
         elif "website" in msg_lower or "site" in msg_lower:
             return Websites_Platforms
         elif "dashboard" in msg_lower or "analytics" in msg_lower or "report" in msg_lower:
@@ -38,8 +27,8 @@ def select_prompt(sender, receiver,message):
         raise ValueError("Combination not supported or not implemented yet!")
     
 
-sender = input("Enter sender (designer/developer/media): ").strip().lower()
-receiver = input("Enter receiver (designer/developer/media): ").strip().lower()
+sender = "media"
+receiver = "developer"
 user_input = input("Enter your message: ").strip()
 
 system_prompt = select_prompt(sender, receiver, user_input)
