@@ -67,7 +67,7 @@ class MessageRequest(BaseModel):
     receiver: str
     message: str
 
-@app.post("//")
+@app.post("/rewrite")
 def rewrite_message(req: MessageRequest):
     try:
         system_prompt = select_prompt(req.sender, req.receiver, req.message)
