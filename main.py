@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from groq import Groq
 import os
+from ai_model import *
 
 
 GROQ_API_KEY = os.environ.get(
